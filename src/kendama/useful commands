@@ -1,0 +1,75 @@
+roslaunch ur_modern_driver ur5_bringup.launch robot_ip:=192.168.1.2
+roslaunch ur5_moveit_config ur5_moveit_planning_execution.launch
+roslaunch ur5_moveit_config moveit_rviz.launch config:=true
+
+rosrun robotiq_3f_gripper_control Robotiq3FGripperTcpNode.py 192.168.1.11
+rosrun robotiq_3f_gripper_control Robotiq3FGripperSimpleController.py
+rosrun robotiq_3f_gripper_control Robotiq3FGripperStatusListener.py
+
+roslaunch robotiq_3f_gripper_articulated_gazebo robotiq_gripper_empty_world.launch
+
+rosrun robotiq_3f_gripper_joint_state_publisher robotiq_3f_gripper_joint_states _prefix:="3f_gripper_"
+
+
+
+################################################################################
+SIMULATION
+################################################################################
+
+roslaunch ur_e_gazebo ur5e.launch
+roslaunch ur5_e_moveit_config ur5_e_moveit_planning_execution.launch sim:=true
+roslaunch ur5_moveit_config moveit_rviz.launch config:=true
+
+
+
+Modify srdf collisions called in planning_context.launch
+
+################################################################################
+INSTALLATION
+################################################################################
+sudo apt-get install ros-kinetic-soem ros-kinetic-ros-canopen libmuparser-dev
+http://wiki.ros.org/robotiq
+https://github.com/dniewinski/universal_robot
+https://github.com/dniewinski/ur_modern_driver
+
+http://wiki.ros.org/robotiq/Tutorials/Control%20of%20a%203-Finger%20Gripper%20using%20the%20Modbus%20TCP%20Protocol
+https://github.com/ros/ros_comm_msgs
+
+
+2162563363
+
+
+
+
+
+
+
+
+
+
+
+
+################################################################################
+FRAME CONVERSION TREE VIEw
+################################################################################
+
+rosrun xacro xacro `rospack find ur_e_description`/urdf/ur5e_robot.urdf.xacro -o /tmp/ur5e.urdf
+
+check_urdf /tmp/ur5e.urdf 
+____________________________________________
+robot name is: ur5e
+---------- Successfully Parsed XML ---------------
+root Link: world has 1 child(ren)
+    child(1):  base_link
+        child(1):  base
+        child(2):  shoulder_link
+            child(1):  upper_arm_link
+                child(1):  forearm_link
+                    child(1):  wrist_1_link
+                        child(1):  wrist_2_link
+                            child(1):  wrist_3_link
+                                child(1):  ee_link
+                                child(2):  tool0
+
+
+urdf_to_graphiz /tmp/phantom_pincher.urdf
