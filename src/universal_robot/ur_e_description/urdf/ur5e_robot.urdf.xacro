@@ -23,13 +23,13 @@
   <xacro:include filename="$(find robotiq_3f_gripper_visualization)/cfg/robotiq-3f-gripper_articulated_macro.xacro" />
 
   <xacro:robotiq-3f-gripper_articulated prefix="3f_gripper_"/>
-  <!-- </xacro:macro> -->
+
 
   <joint name="gripper_palm_joint" type="fixed">
     <parent link="ee_link" />
     <child link = "3f_gripper_palm" />
     <origin xyz="0.050 0.0 0.0" rpy="0.0 0.0 -1.57079632679" />
   </joint>
-
+  <!-- </xacro:macro> -->
 
 </robot>

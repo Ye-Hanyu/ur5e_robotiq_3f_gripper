@@ -1,6 +1,10 @@
 roslaunch ur_modern_driver ur5_bringup.launch robot_ip:=192.168.1.2
+roslaunch ur_modern_driver ur5e_ros_control.launch robot_ip:=192.168.1.2
 roslaunch ur5_moveit_config ur5_moveit_planning_execution.launch
+ roslaunch ur5_e_moveit_config ur5_e_moveit_planning_execution.launch
 roslaunch ur5_moveit_config moveit_rviz.launch config:=true
+roslaunch ur5_e_moveit_config moveit_rviz.launch config:=true
+
 
 rosrun robotiq_3f_gripper_control Robotiq3FGripperTcpNode.py 192.168.1.11
 rosrun robotiq_3f_gripper_control Robotiq3FGripperSimpleController.py
@@ -17,10 +21,10 @@ SIMULATION
 ################################################################################
 
 roslaunch ur_e_gazebo ur5e.launch
-roslaunch ur5_e_moveit_config ur5_e_moveit_planning_execution.launch sim:=true
-roslaunch ur5_moveit_config moveit_rviz.launch config:=true
+roslaunch ur5_e_moveit_config ur5_e_moveit_planning_execution.launch sim:=true fake:=true
+roslaunch ur5_e_moveit_config moveit_rviz.launch config:=true
 
-
+rosrun kendama main.py 
 
 Modify srdf collisions called in planning_context.launch
 
@@ -36,12 +40,11 @@ http://wiki.ros.org/robotiq/Tutorials/Control%20of%20a%203-Finger%20Gripper%20us
 https://github.com/ros/ros_comm_msgs
 
 
-2162563363
+https://answers.ros.org/question/292444/gazebo_ros_control-plugin-gazeboroscontrolplugin-missing-legacymodens-defaultrobothwsim/
 
+https://github.com/ros-controls/ros_controllers/tree/kinetic-devel
 
-
-
-
+https://askubuntu.com/questions/654951/failed-to-connect-to-socket-com-ubuntu-upstart-connection-refused-errors-were/665742#665742
 
 
 
