@@ -51,7 +51,7 @@ def ur5e_control():
     startTime = time.time()
     prevtime = time.time()
 
-    move_it_turtlebot = MoveGroupPythonIntefaceTutorial()
+    # move_it_turtlebot = MoveGroupPythonIntefaceTutorial()
 
     # set node rate
     loop_rate   = 40
@@ -66,29 +66,40 @@ def ur5e_control():
 
     joint_traj = JointTrajectory()
     joint_point = JointTrajectoryPoint()
+    joint_vels = Float64MultiArray()
+
     command_pub = rospy.Publisher('/vel_based_pos_traj_controller/command',JointTrajectory,queue_size =1)
-    command_pub2 = rospy.Publisher('/vel_based_pos_trajontroller/follow_joint_trajectory/goal',JointTrajectory,queue_size =1)
-    joint_traj.joint_names = ['shoulder_pan_joint','shoulder_lift_joint', 'elbow_joint',  'wrist_1_joint', 'wrist_2_joint',
+    command_pub2 = rospy.Publisher('/ur_driver/jointspeed',JointTrajectory,queue_size =1)
+    command_pub3 = rospy.Publisher('joint_group_vel_controller/command',Float64MultiArray,queue_size =1)
+    joint_traj.joint_names = ['elbow_joint', 'shoulder_lift_joint', 'shoulder_pan_joint', 'wrist_1_joint', 'wrist_2_joint',
   'wrist_3_joint']
 
     joint_point.positions = np.array([-0.28918897319575736, -0.5116089327398363, -0.21748375933108388, 1.4684332653952596, -0.2202624218007605, 0.08156436078884344])
-    joint_point.velocities = np.array([0,0,0,0,0,0])
-    joint_point.accelerations = np.array([0,0,0,0,0,0])
+    joint_point.positions = np.array([0,0,0,0,0,0])
+    joint_point.velocities = np.array([1,-1,-1,-1,-1,-1])
+    joint_point.accelerations = np.array([1,-1,-1,-1,-1,-1])
     # joint_point.velocities = np.array([-0.19644730172630054, -0.1178443083991266, 0.14913797608558607, 0.41509166700461164, 0.14835661279488965, -0.10175914445443687])
     # joint_point.accelerations = np.array([-1.4413459458952043, -0.8646309451201031, 1.0942345113473044, 3.0455531135039218, 1.0885016007834076, -0.7466131070688594])
     joint_point.time_from_start.secs = 1
 
-
+    joint_vels.data = np.array([0,0,0,0,0,0])
 
 
     joint_traj.points = [joint_point]
     while not rospy.is_shutdown():
-        command_pub.publish(joint_traj)
+        # command_pub2.publish(joint_traj)
+        command_pub3.publish(joint_vels)
         f = 2
         w = 2*3.14159*f
         dt = time.time()-startTime
-        joint_point.positions = np.array([cos(3*dt), sin(3*dt)-1, -0.21748375933108388, 1.4684332653952596, -0.2202624218007605, 0.08156436078884344])
-        joint_traj.points = [joint_point]
+        joint_vels.data = np.array([0,0.4*sin(dt), 0.4*sin(dt), 0,0,0])
+        # joint_point.positions = np.array([cos(3*dt), sin(3*dt)-1, -0.21748375933108388, 1.4684332653952596, -0.2202624218007605, 0.08156436078884344])
+        # # joint_point.velocities = np.array([cos(3*dt), sin(3*dt)-1, -0.21748375933108388, 1.4684332653952596, -0.2202624218007605, 0.08156436078884344])
+        # joint_traj.points = [joint_point]
+
+
+
+
         # command_pub2.publish(joint_traj)
         # a = raw_input("============ Moving arm to pose 1")
         # s1 = move_it_turtlebot.go_to_pose_goal(np.round([0.4,-0.04,.7,0,pi/2,0],2))
@@ -98,6 +109,9 @@ def ur5e_control():
         # print(move_it_turtlebot.move_group.get_current_pose())
         # a = raw_input("aaaaaa")
         rate.sleep()
+    command_pub3.publish(Float64MultiArray(np.array([0,0,0,0,0,0])))
+    print("shu")
+    print("shut")
 
 
 

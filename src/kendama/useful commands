@@ -20,6 +20,16 @@ rosrun robotiq_3f_gripper_joint_state_publisher robotiq_3f_gripper_joint_states 
 SIMULATION
 ################################################################################
 
+~/Downloads/ursim-5.1.0.40195$ ./start-ursim.sh 
+roslaunch ur_modern_driver ur5e_ros_control.launch robot_ip:=127.0.0.1
+
+
+
+
+
+
+
+
 roslaunch ur_e_gazebo ur5e.launch
 roslaunch ur5_e_moveit_config ur5_e_moveit_planning_execution.launch sim:=true fake:=true
 roslaunch ur5_e_moveit_config moveit_rviz.launch config:=true
@@ -46,9 +56,12 @@ https://github.com/ros-controls/ros_controllers/tree/kinetic-devel
 
 https://askubuntu.com/questions/654951/failed-to-connect-to-socket-com-ubuntu-upstart-connection-refused-errors-were/665742#665742
 
+https://github.com/ros-industrial/universal_robot/pull/284
+https://github.com/ros-industrial/ur_modern_driver/pull/120 changed modern driver
+http://wiki.ros.org/jog_arm
+https://github.com/ros-industrial/ur_modern_driver/pull/216
 
-
-
+grep -r "joint_speed"
 
 
 
