@@ -92,7 +92,8 @@ def ur5e_control():
         f = 2
         w = 2*3.14159*f
         dt = time.time()-startTime
-        joint_vels.data = np.array([0,0.4*sin(dt), 0.4*sin(dt), 0,0,0])
+        # joint_vels.data = np.array([0,0,0.4*sin(2*dt), 0.4*sin(2*dt),0,0.4*sin(2*dt)])
+        joint_vels.data = np.array([0,0.5*sin(dt),0,0,0,0])
         # joint_point.positions = np.array([cos(3*dt), sin(3*dt)-1, -0.21748375933108388, 1.4684332653952596, -0.2202624218007605, 0.08156436078884344])
         # # joint_point.velocities = np.array([cos(3*dt), sin(3*dt)-1, -0.21748375933108388, 1.4684332653952596, -0.2202624218007605, 0.08156436078884344])
         # joint_traj.points = [joint_point]
